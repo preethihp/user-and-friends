@@ -18,8 +18,8 @@ jobs:
 
       - name: Build and Push Backend Docker Image
         env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}  # Add your Docker Hub username secret
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  # Add your Docker Hub password secret
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}  
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }} 
         run: |
           docker build -t preethihp1802/myproject-backend ./Backend
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
@@ -34,8 +34,8 @@ jobs:
 
       - name: Build and Push Frontend Docker Image
         env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}  # Add your Docker Hub username secret
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  # Add your Docker Hub password secret
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }} 
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }} 
         run: |
           cd react/myapp  
           docker build -t preethihp1802/myproject-frontend .
