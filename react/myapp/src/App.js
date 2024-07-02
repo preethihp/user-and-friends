@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import UserList from './components/userItem'
+import UserList from './components/userList'
 import AddUser from './components/addUser';
 import Login from './components/login';
 import AddFriend from './components/addFriend';
