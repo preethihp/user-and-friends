@@ -1,0 +1,96 @@
+{
+  "name": "myapp",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "install:backend": "npm install --prefix Backend",
+    "install:frontend": "npm install --prefix react",
+    "build:backend": "npm run build --prefix Backend",
+    "build:frontend": "npm run build --prefix react",
+    "test:backend": "npm test --prefix Backend",
+    "test:frontend": "npm test --prefix react",
+    "lint:backend": "npm run lint --prefix Backend",
+    "lint:frontend": "npm run lint --prefix react",
+    "lint": "npm run lint:backend && npm run lint:frontend"
+    
+  },
+  "dependencies": {
+    
+  },
+  "devDependencies": {
+    
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+      
+    }
+  },
+  "workflows": {
+    "version": "2",
+    "build-and-deploy": {
+      "jobs": {
+        "backend": {
+          "runs-on": "ubuntu-latest",
+          "steps": [
+            {
+              "name": "Checkout Backend",
+              "uses": "actions/checkout@v2"
+            },
+            {
+              "name": "Install Dependencies",
+              "run": "npm install",
+              "working-directory": "backend"
+            },
+            {
+              "name": "Run Tests",
+              "run": "npm test",
+              "working-directory": "backend"
+            },
+            {
+              "name": "Lint Code",
+              "run": "npm run lint",
+              "working-directory": "backend"
+            },
+            {
+              "name": "Build",
+              "run": "npm run build",
+              "working-directory": "backend"
+            }
+            
+          ]
+        },
+        "frontend": {
+          "runs-on": "ubuntu-latest",
+          "steps": [
+            {
+              "name": "Checkout Frontend",
+              "uses": "actions/checkout@v2"
+            },
+            {
+              "name": "Install Dependencies",
+              "run": "npm install",
+              "working-directory": "frontend"
+            },
+            {
+              "name": "Run Tests",
+              "run": "npm test",
+              "working-directory": "frontend"
+            },
+            {
+              "name": "Lint Code",
+              "run": "npm run lint",
+              "working-directory": "frontend"
+            },
+            {
+              "name": "Build",
+              "run": "npm run build",
+              "working-directory": "frontend"
+            }
+            
+          ]
+        }
+      }
+    }
+  }
+}

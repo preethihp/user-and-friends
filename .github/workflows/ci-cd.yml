@@ -1,0 +1,44 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main 
+  pull_request:
+    branches:
+      - main 
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Backend
+        uses: actions/checkout@v2
+
+      - name: Build and Push Backend Docker Image
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}  # Add your Docker Hub username secret
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  # Add your Docker Hub password secret
+        run: |
+          docker build -t preethihp1802/myproject-backend ./Backend
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          docker push preethihp1802/myproject-backend
+
+  frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Frontend
+        uses: actions/checkout@v2
+
+      - name: Build and Push Frontend Docker Image
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}  # Add your Docker Hub username secret
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  # Add your Docker Hub password secret
+        run: |
+          cd react/myapp  
+          docker build -t preethihp1802/myproject-frontend .
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+          docker push preethihp1802/myproject-frontend
+
